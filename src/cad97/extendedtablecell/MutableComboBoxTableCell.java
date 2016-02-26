@@ -190,9 +190,9 @@ public class MutableComboBoxTableCell<S, T> extends ComboBoxTableCell<S, T> {
 			f.setAccessible(true);
 			return (ComboBox) f.get(this);
 		} catch (NoSuchFieldException ex) {
-			Logger.getLogger(InjectedTextFieldTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.NO_SUCH_FIELD, "comboBox", "ComboBoxTableCell"), ex);
+			Logger.getLogger(MutableComboBoxTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.NO_SUCH_FIELD, "comboBox", "ComboBoxTableCell"), ex);
 		} catch (SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-			Logger.getLogger(InjectedTextFieldTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.OTHER_EXCEPT, "comboBox", "ComboBoxTableCell"), ex);
+			Logger.getLogger(MutableComboBoxTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.OTHER_EXCEPT, "comboBox", "ComboBoxTableCell"), ex);
 		}
 		return null;
 	}

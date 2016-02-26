@@ -107,9 +107,9 @@ public class MutableTextFieldTableCell<S, T> extends TextFieldTableCell<S, T> {
 			f.setAccessible(true);
 			return (TextField) f.get(this);
 		} catch (NoSuchFieldException ex) {
-			Logger.getLogger(InjectedTextFieldTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.NO_SUCH_FIELD, "textField", "TextFieldTableCell"), ex);
+			Logger.getLogger(MutableTextFieldTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.NO_SUCH_FIELD, "textField", "TextFieldTableCell"), ex);
 		} catch (SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-			Logger.getLogger(InjectedTextFieldTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.OTHER_EXCEPT, "textField", "TextFieldTableCell"), ex);
+			Logger.getLogger(MutableTextFieldTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.OTHER_EXCEPT, "textField", "TextFieldTableCell"), ex);
 		}
 		return null;
 	}
