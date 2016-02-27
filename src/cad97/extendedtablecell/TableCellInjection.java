@@ -20,7 +20,7 @@ import javafx.scene.input.KeyCode;
 public final class TableCellInjection {
 
 	private TableCellInjection() {
-		throw new UnsupportedOperationException("TableCellExtension is a utility class and should not be instantiated.");
+		throw new UnsupportedOperationException("TableCellInjection is a utility class and should not be instantiated.");
 	}
 
 	/**
