@@ -17,9 +17,9 @@ import javafx.scene.input.KeyCode;
  *
  * @author Christopher
  */
-public final class TableCellExtension {
+public final class TableCellInjection {
 
-	private TableCellExtension() {
+	private TableCellInjection() {
 		throw new UnsupportedOperationException("TableCellExtension is a utility class and should not be instantiated.");
 	}
 
@@ -180,7 +180,7 @@ public final class TableCellExtension {
 		} else {
 			format = "Unexpeted Exception";
 		}
-		Logger.getLogger(TableCellExtension.class.getName()).log(Level.SEVERE, String.format(format, clazz, field, value), ex);
+		Logger.getLogger(TableCellInjection.class.getName()).log(Level.SEVERE, String.format(format, clazz, field, value), ex);
 	}
 
 	private static void logGetException(Exception ex, String clazz, String field) {
@@ -196,6 +196,6 @@ public final class TableCellExtension {
 		} else {
 			format = "Unexpeted Exception";
 		}
-		Logger.getLogger(TableCellExtension.class.getName()).log(Level.SEVERE, String.format(format, clazz, field), ex);
+		Logger.getLogger(TableCellInjection.class.getName()).log(Level.SEVERE, String.format(format, clazz, field), ex);
 	}
 }

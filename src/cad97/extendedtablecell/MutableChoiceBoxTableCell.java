@@ -1,6 +1,6 @@
 package cad97.extendedtablecell;
 
-import static cad97.extendedtablecell.TableCellExtension.getField;
+import static cad97.extendedtablecell.TableCellInjection.getField;
 import java.util.function.BiConsumer;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
