@@ -1,10 +1,7 @@
 package cad97.extendedtablecell;
 
-import java.lang.reflect.Field;
+import static cad97.extendedtablecell.TableCellExtension.getField;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.cell.ComboBoxTableCell;
@@ -27,16 +24,6 @@ public class MutableComboBoxTableCell<S, T> extends ComboBoxTableCell<S, T> {
 	 * Creates a default ComboBoxTableCell with an empty items list.
 	 *
 	 * @param mutator used to mutate ComboBox directly before it is shown to the
-	 * user.
-	 */
-	public MutableComboBoxTableCell(Consumer<ComboBox> mutator) {
-		this((cell, box) -> mutator.accept(box));
-	}
-
-	/**
-	 * Creates a default ComboBoxTableCell with an empty items list.
-	 *
-	 * @param mutator used to mutate ComboBox directly before it is shown to the
 	 * user, using information about the cell.
 	 */
 	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator) {
@@ -51,79 +38,11 @@ public class MutableComboBoxTableCell<S, T> extends ComboBoxTableCell<S, T> {
 	 * @param items The items to show in the ComboBox popup menu when selected
 	 * by the user.
 	 * @param mutator used to mutate ComboBox directly before it is shown to the
-	 * user.
-	 */
-	public MutableComboBoxTableCell(Consumer<ComboBox> mutator, ObservableList<T> items) {
-		this((cell, box) -> mutator.accept(box), items);
-	}
-
-	/**
-	 * Creates a default {@link ComboBoxTableCell} instance with the given items
-	 * being used to populate the {@link ComboBox} when it is shown.
-	 *
-	 * @param items The items to show in the ComboBox popup menu when selected
-	 * by the user.
-	 * @param mutator used to mutate ComboBox directly before it is shown to the
 	 * user, using information about the cell.
 	 */
-	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator, ObservableList<T> items) {
+	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator, T... items) {
 		super(items);
 		this.mutator = mutator;
-	}
-
-	/**
-	 * Creates a {@link ComboBoxTableCell} instance with the given items being
-	 * used to populate the {@link ComboBox} when it is shown, and the
-	 * {@link StringConverter} being used to convert the item in to a
-	 * user-readable form.
-	 *
-	 * @param converter A {@link StringConverter} that can convert an item of
-	 * type T into a user-readable string so that it may then be shown in the
-	 * ComboBox popup menu.
-	 * @param items The items to show in the ComboBox popup menu when selected
-	 * by the user.
-	 * @param mutator used to mutate ComboBox directly before it is shown to the
-	 * user.
-	 */
-	public MutableComboBoxTableCell(Consumer<ComboBox> mutator, StringConverter<T> converter, ObservableList<T> items) {
-		this((cell, box) -> mutator.accept(box), converter, items);
-	}
-
-	/**
-	 * Creates a {@link ComboBoxTableCell} instance with the given items being
-	 * used to populate the {@link ComboBox} when it is shown, and the
-	 * {@link StringConverter} being used to convert the item in to a
-	 * user-readable form.
-	 *
-	 * @param converter A {@link StringConverter} that can convert an item of
-	 * type T into a user-readable string so that it may then be shown in the
-	 * ComboBox popup menu.
-	 * @param items The items to show in the ComboBox popup menu when selected
-	 * by the user.
-	 * @param mutator used to mutate ComboBox directly before it is shown to the
-	 * user, using information about the cell.
-	 */
-	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator, StringConverter<T> converter, ObservableList<T> items) {
-		super(converter, items);
-		this.mutator = mutator;
-	}
-
-	/**
-	 * Creates a {@link ComboBoxTableCell} instance with the given items being
-	 * used to populate the {@link ComboBox} when it is shown, and the
-	 * {@link StringConverter} being used to convert the item in to a
-	 * user-readable form.
-	 *
-	 * @param converter A {@link StringConverter} that can convert an item of
-	 * type T into a user-readable string so that it may then be shown in the
-	 * ComboBox popup menu.
-	 * @param items The items to show in the ComboBox popup menu when selected
-	 * by the user.
-	 * @param mutator used to mutate ComboBox directly before it is shown to the
-	 * user.
-	 */
-	public MutableComboBoxTableCell(Consumer<ComboBox> mutator, StringConverter<T> converter, T... items) {
-		this((cell, box) -> mutator.accept(box), converter, items);
 	}
 
 	/**
@@ -152,23 +71,15 @@ public class MutableComboBoxTableCell<S, T> extends ComboBoxTableCell<S, T> {
 	 * @param items The items to show in the ComboBox popup menu when selected
 	 * by the user.
 	 * @param mutator used to mutate ComboBox directly before it is shown to the
-	 * user.
-	 */
-	public MutableComboBoxTableCell(Consumer<ComboBox> mutator, T... items) {
-		this((cell, box) -> mutator.accept(box), items);
-	}
-
-	/**
-	 * Creates a default {@link ComboBoxTableCell} instance with the given items
-	 * being used to populate the {@link ComboBox} when it is shown.
-	 *
-	 * @param items The items to show in the ComboBox popup menu when selected
-	 * by the user.
-	 * @param mutator used to mutate ComboBox directly before it is shown to the
 	 * user, using information about the cell.
 	 */
-	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator, T... items) {
+	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator, ObservableList<T> items) {
 		super(items);
+		this.mutator = mutator;
+	}
+
+	public MutableComboBoxTableCell(BiConsumer<ComboBoxTableCell, ComboBox> mutator, StringConverter<T> converter, ObservableList<T> items) {
+		super(converter, items);
 		this.mutator = mutator;
 	}
 
@@ -179,21 +90,8 @@ public class MutableComboBoxTableCell<S, T> extends ComboBoxTableCell<S, T> {
 	public void startEdit() {
 		super.startEdit();
 		if (!mutated && isEditing()) {
-			mutator.accept(this, getComboBox());
+			mutator.accept(this, getField(this, "comboBox"));
 			mutated = true;
 		}
-	}
-
-	private ComboBox getComboBox() {
-		try {
-			Field f = ComboBoxTableCell.class.getField("comboBox");
-			f.setAccessible(true);
-			return (ComboBox) f.get(this);
-		} catch (NoSuchFieldException ex) {
-			Logger.getLogger(MutableComboBoxTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.NO_SUCH_FIELD, "comboBox", "ComboBoxTableCell"), ex);
-		} catch (SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-			Logger.getLogger(MutableComboBoxTableCell.class.getName()).log(Level.SEVERE, String.format(Strings.OTHER_EXCEPT, "comboBox", "ComboBoxTableCell"), ex);
-		}
-		return null;
 	}
 }
