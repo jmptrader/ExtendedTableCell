@@ -11,7 +11,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 
 /**
- * Methods static class for TextField injection.
+ * Methods static class for TableCell injection.
  *
  * @author Christopher
  */
@@ -31,6 +31,10 @@ public final class TableCellExtension {
 	 * <p>
 	 * The TextField has its OnAction and OnKeyReleased set to the default
 	 * behavior for the TableCell.
+	 * <p>
+	 * Unless you are using a custom extention to TextField, you should probably
+	 * use {@link MutableTextFieldTableCell} instead and modify the default
+	 * TextField in that mutator.
 	 *
 	 * @param textField the TextField to inject
 	 * @param cell the TableCell to be injected
@@ -69,6 +73,10 @@ public final class TableCellExtension {
 	 * <p>
 	 * The ComboBox has its converterProperty and maxWidth set to the default
 	 * behavior for the TableCell.
+	 * <p>
+	 * Unless you are using a custom extention to ComboBox, you should probably
+	 * use {@link MutableComboBoxTableCell} instead and modify the default
+	 * ComboBox in that mutator.
 	 *
 	 * @param comboBox the ComboBox to inject
 	 * @param cell the TableCell to be injected
