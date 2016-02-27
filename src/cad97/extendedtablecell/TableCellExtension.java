@@ -3,9 +3,13 @@ package cad97.extendedtablecell;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
@@ -93,6 +97,39 @@ public final class TableCellExtension {
 		});
 		// ]]
 		setField(cell, "comboBox", comboBox);
+		return cell;
+	}
+	
+	/**
+	 * Injects a {@link javafx.scene.control.Control} into the corresponding
+	 * TableCell. The Node will be configured as it would be when created by the
+	 * TableCell.
+	 * <p>
+	 * Make sure to set the cell&rsquo;s converterProperty, or you won't be able
+	 * to set/get the value correctly!
+	 * <p>
+	 * The ChoiceBox has its converterProperty and maxWidth set to the default
+	 * behavior for the TableCell.
+	 * <p>
+	 * Unless you are using a custom extention to ChoiceBox, you should probably
+	 * use {@link MutableChoiceBoxTableCell} instead and modify the default
+	 * ChoiceBox in that mutator.
+	 *
+	 * @param choiceBox the ChoiceBox to be injected
+	 * @param cell the TableCell to be injected
+	 * @return The injected TableCell
+	 */
+	public static TableCell injectTableCell(ChoiceBox choiceBox, ChoiceBoxTableCell cell) {
+		// CellUtils#createChoiceBox [[
+		choiceBox.setMaxWidth(Double.MAX_VALUE);
+        choiceBox.converterProperty().bind(cell.converterProperty());
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            if (cell.isEditing()) {
+                cell.commitEdit(newValue);
+            }
+        });
+		// ]]
+		setField(cell, "choiceBox", choiceBox);
 		return cell;
 	}
 	
